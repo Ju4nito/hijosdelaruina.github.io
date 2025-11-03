@@ -2,52 +2,185 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Página básica fondo negro</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>13 años después — La misma mierda</title>
   <style>
+    @font-face {
+      font-family: 'LeMansClassic';
+      src: url('fonts/le-mans-classic-regular.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
     :root {
       --bg: #000;
-      --fg: #fff;
-      --muted: #9aa0a6;
-      --accent: #00e5ff;
+      --accent: #e60000;
+      --muted: #a0a0a0;
     }
-    * { box-sizing: border-box; }
     html, body {
-      height: 100%;
       margin: 0;
+      padding: 0;
+      height: 100%;
       background: var(--bg);
-      color: var(--fg);
-      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Arial, sans-serif;
+      color: #fff;
+      font-family: 'LeMansClassic', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 48px 24px;
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
     }
-    h1, h2, h3 { margin: 0 0 0.5em; }
-    p { margin: 0 0 1em; color: var(--fg); }
-    .muted { color: var(--muted); }
+    h1 {
+      font-size: clamp(70px, 12vw, 150px);
+    line-height: 0.9;
+    margin: 0;
+	    justify-content: center;
+    text-align: center;
+  }
+
+    .countdown {
+      margin-top: 40px;
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+      font-size: 70px;
+    }
+    .countdown div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .label {
+      font-size: clamp(16px, 2vw, 28px);
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    .concerts {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+    .concerts div {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      font-size: 30px;
+    }
     .btn {
-      display: inline-block;
-      padding: 10px 16px;
-      border-radius: 10px;
-      background: #111;
-      border: 1px solid #333;
-      color: var(--fg);
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 6px;
       cursor: pointer;
+      font-size: clamp(14px, 2vw, 18px);
+      transition: transform .2s ease;
     }
-    .btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    .btn.soldout {
+      background: #444;
+      color: #999;
+      cursor: default;
+      transform: none;
+    }
+		.poster-title{display:none;}
+    @media (max-width: 700px) {
+      .concerts {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+		.poster-title-desktop{display:none;}
+			.poster-title-desktop{display:block;}
+    }
+	
+	
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <h1>Hola, mundo</h1>
-    <p class="muted">Plantilla mínima con fondo negro.</p>
-    <p>
-      <a class="btn" href="#">Botón/enlace</a>
-    </p>
-  </main>
+<h1 class="poster-title-desktop">
+  13 años después<br>
+  la misma mierda<br>
+  <hr style="border:2px solid #fff; width:90%; margin:15px auto;">
+  hijos de la ruina
+</h1>
+<h1 class="poster-title">
+  13 años después<br>
+  la misma<br>
+  mierda<br>
+  <hr style="border:2px solid #fff; width:90%; margin:15px auto;">
+  hijos de<br>
+  la ruina
+</h1>
+  <div id="countdown" class="countdown">
+    <div><span id="days">--</span><span class="label">Días</span></div>
+    <div><span id="hours">--</span><span class="label">Horas</span></div>
+    <div><span id="minutes">--</span><span class="label">Minutos</span></div>
+    <div><span id="seconds">--</span><span class="label">Segundos</span></div>
+  </div>
+
+  <div class="concerts" id="concerts"></div>
+	<div style="text-align:center;margin-top:80px;clear:both;bottom:40px;"><a class="btn" href="natosywaor.com" style="font-size:40px;text-decoration:none;" >natosywaor.com</a>&nbsp;
+	<a class="btn" href="https://recycledj.com/" style="font-size:40px;text-decoration:none;">recycledj.com</a><br /><br /><br /><br /></div>
+  <script>
+    function getNext14() {
+      const now = new Date();
+      const year = now.getFullYear();
+      let month = now.getMonth();
+      let target = new Date(year, month, 14, 0, 0, 0, 0);
+      if (now >= target) month++;
+      return new Date(year, month, 14, 0, 0, 0, 0);
+    }
+    let targetDate = getNext14();
+    function updateCountdown() {
+      const now = new Date();
+      const diff = Math.max(0, targetDate - now);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById('days').textContent = d;
+      document.getElementById('hours').textContent = h.toString().padStart(2,'0');
+      document.getElementById('minutes').textContent = m.toString().padStart(2,'0');
+      document.getElementById('seconds').textContent = s.toString().padStart(2,'0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    const concertsData = [
+      { date: '27/02/2026', city: 'Sevilla', venue: 'Cartuja Center CITE', soldout: false },
+      { date: '06/03/2026', city: 'Zaragoza', venue: 'Pabellón Príncipe Felipe', soldout: false },
+      { date: '13/03/2026', city: 'Madrid', venue: 'Movistar Arena', soldout: true },
+      { date: '14/03/2026', city: 'Madrid', venue: 'Movistar Arena', soldout: false },
+      { date: '17/04/2026', city: 'A Coruña', venue: 'Coliseum', soldout: false }
+    ];
+
+    const container = document.getElementById('concerts');
+    concertsData.forEach(c => {
+      const dateDiv = document.createElement('div');
+      dateDiv.textContent = `${c.date} - HDLR`;
+      const cityDiv = document.createElement('div');
+      cityDiv.textContent = c.city;
+      const venueDiv = document.createElement('div');
+      venueDiv.textContent = c.venue;
+      const btnDiv = document.createElement('div');
+      const btn = document.createElement('button');
+      btn.className = 'btn' + (c.soldout ? ' soldout' : '');
+      btn.textContent = c.soldout ? 'SOLD OUT' : 'COMPRAR ENTRADAS';
+      btnDiv.appendChild(btn);
+      container.appendChild(dateDiv);
+      container.appendChild(cityDiv);
+      container.appendChild(venueDiv);
+      container.appendChild(btnDiv);
+    });
+  </script>
 </body>
 </html>
