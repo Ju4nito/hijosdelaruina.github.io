@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>13 años después la misma mierda - Hijos de la Ruina</title>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+/* ====== FUENTE: LE MANS CLASSIC ====== */
+@font-face {
+  font-family: 'LeMansClassic';
+  src:
+    url('fonts/le-mans-classic-regular.woff2') format('woff2'),
+    url('fonts/le-mans-classic-regular.woff') format('woff'),
+    url('fonts/le-mans-classic-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ====== BASE ====== */
+:root {
+  --bg: #000;
+  --accent: #e60000;
+  --muted: #a0a0a0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: #fff;
+  font-family: 'LeMansClassic', sans-serif;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  font-kerning: normal;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+}
+
+/* ====== TITULOS ====== */
+h1 {
+  margin: 0;
+  text-align: center;
+  line-height: 0.9;
+  letter-spacing: 5px;
+  overflow-wrap: anywhere;
+  transform: translateY(0.05em);
+    font-weight: 500;
+}
+
+/* Versión escritorio */
+.poster-title-desktop {
+  font-size: clamp(70px, 12vw, 150px);
+  display: block;
+}
+
+/* Versión móvil */
+.poster-title {
+  font-size: 14vw;
+  display: none;
+}
+
+/* Línea separadora */
+h1 hr {
+  border: none;
+  border-top: 4px solid #fff;
+  width: 90%;
+  margin: 25px auto;
+
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 700px) {
+  .poster-title-desktop {
+    display: none;
+  }
+  .poster-title {
+    display: block;
+	font-weight: 500;
+  }
+
+  h1 {
+    letter-spacing: 3px;
+    line-height: 0.9;
+  }
+
+  h1 hr {
+    border-top: 3px solid #fff;
+    width: 80%;
+    margin: 15px auto;
+  }
+}
+
+.countdown {
+  margin-top: 40px;
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  font-size: 70px;
+}
+
+.countdown div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  font-size: clamp(16px, 2vw, 28px);
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* ====== CONCIERTOS ====== */
+.concerts {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.concerts div {
+  padding: 10px 0;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom:10px;
+}
+
+.btn {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform .2s ease;
+  text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.btn.soldout {
+  background: #444;
+  color: #999;
+
+}
+.concerts .btn{display:block;width:100%;}
+.footer{text-align:center;margin-top:80px;clear:both;bottom:40px;}
+@media (max-width: 700px) {
+  .concerts {
+    grid-template-columns: 1fr;
+    text-align: center;
+	margin-bottom:20px;
+  }
+  .concerts div{  border-bottom: 1px solid rgba(255,255,255,0.1);}
+  h1{font-size: 90px !important;}
+  .footer a{display:block;with:100%;}
+  .concerts .btn{display:block;width:80%;margin:0 auto;}
+}
+  </style>
+</head>
+<body>
+  <!-- ====== TITULOS ====== -->
+  <h1 class="poster-title-desktop">
+    13 años después<br>
+    la misma mierda<br>
+    <hr>
+    hijos de la ruina
+  </h1>
+
+  <h1 class="poster-title">
+    13 años después<br>
+    la misma<br>
+    mierda<br>
+    <hr>
+    hijos de<br>
+    la ruina
+  </h1>
+
+  <!-- ====== CONTADOR ====== -->
+  <div id="countdown" class="countdown">
+    <div><span id="days">--</span><span class="label">Días</span></div>
+    <div><span id="hours">--</span><span class="label">Horas</span></div>
+    <div><span id="minutes">--</span><span class="label">Minutos</span></div>
+    <div><span id="seconds">--</span><span class="label">Segundos</span></div>
+  </div>
+
+  <!-- ====== CONCIERTOS ====== -->
+  <div class="concerts" id="concerts"></div>
+  <div class="footer">
+    <a class="btn" href="https://natosywaor.com" style="font-size:40px;">natosywaor.com</a>&nbsp;
+    <a class="btn" href="https://recycledj.com/" style="font-size:40px;">recycledj.com</a>
+    <br><br><br><br>
+  </div>
+
+ <script>
+  // Fecha objetivo: 14 de noviembre a las 00:00 hora española (Europe/Madrid)
+  const targetDate = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Europe/Madrid" })
+  );
+  targetDate.setMonth(10); // noviembre (0 = enero)
+  targetDate.setDate(14);
+  targetDate.setHours(0, 0, 0, 0);
+
+  function updateCountdown() {
+    const now = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Europe/Madrid" })
+    );
+    const diff = Math.max(0, targetDate - now);
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("days").textContent = d;
+    document.getElementById("hours").textContent = h.toString().padStart(2, "0");
+    document.getElementById("minutes").textContent = m.toString().padStart(2, "0");
+    document.getElementById("seconds").textContent = s.toString().padStart(2, "0");
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // ====== LISTADO DE CONCIERTOS ======
+const concertsData = [
+  {
+    date: "27/02/2026",
+    city: "Sevilla",
+    venue: "Cartuja Center CITE",
+    soldout: false,
+    link: "https://cartujacenter.janto.es/es/espectaculo/hijos-de-la-ruina-volumen-4/HIJOSRUINAVOL4"
+  },
+  {
+    date: "06/03/2026",
+    city: "Zaragoza",
+    venue: "Pabellón Príncipe Felipe",
+    soldout: false,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-pabellon-principe-felipe-20314464/?affiliate=HSR"
+  },
+  {
+    date: "13/03/2026",
+    city: "Madrid",
+    venue: "Movistar Arena",
+    soldout: true,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-movistar-arena-20265001/?affiliate=HSR"
+  },
+  {
+    date: "14/03/2026",
+    city: "Madrid",
+    venue: "Movistar Arena",
+    soldout: false,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-movistar-arena-20293663/?affiliate=HSR"
+  },
+  {
+    date: "17/04/2026",
+    city: "A Coruña",
+    venue: "Coliseum",
+    soldout: false,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-coliseum-da-coruna-20263125/?affiliate=HSR"
+  },
+  {
+    date: "15/05/2026",
+    city: "Barcelona",
+    venue: "Palau Sant Jordi",
+    soldout: false,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-palau-sant-jordi-20268543/?affiliate=HSR"
+  },
+   {
+    date: "18/09/2026",
+    city: "Valencia",
+    venue: "Roig Arena",
+    soldout: false,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-roig-arena-20314887/?affiliate=HSR"
+  },
+  {
+    date: "26/09/2026",
+    city: "Granada",
+    venue: "Plaza de toros",
+    soldout: false,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-plaza-de-toros-de-granada-20263335/?affiliate=HSR"
+  },
+   {
+    date: "17/10/2026",
+    city: "Salamanca",
+    venue: "Enjoy! Multiusos Sánchez Paraiso",
+    soldout: false,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-enjoy-multiusos-20263580/?affiliate=HSR"
+  }
+  ,
+   {
+    date: "24/10/2026",
+    city: "Bilbao",
+    venue: "Bilbao Arena",
+    soldout: false,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-bilbao-arena-miribilla-20264623/?affiliate=HSR"
+  }
+  ,
+   {
+    date: "07/11/2026",
+    city: "Málaga",
+    venue: "07/11/2026",
+    soldout: false,
+    link: "https://www.entradas.com/event/gira-hijos-de-la-ruina-2026-palacio-de-los-deportes-jose-maria-martin-carpena-20263730/?affiliate=HSR"
+  }
+];
+
+const container = document.getElementById("concerts");
+
+concertsData.forEach((c) => {
+  const dateDiv = document.createElement("div");
+  dateDiv.textContent = `${c.date} - HDLR`;
+
+  const cityDiv = document.createElement("div");
+  cityDiv.textContent = c.city;
+
+  const venueDiv = document.createElement("div");
+  venueDiv.textContent = c.venue;
+
+  const btnDiv = document.createElement("div");
+
+  if (c.soldout) {
+    const btn = document.createElement("button");
+    btn.className = "btn soldout";
+    btn.textContent = "SOLD OUT";
+    btnDiv.appendChild(btn);
+  } else {
+    const link = document.createElement("a");
+    link.href = c.link;
+    link.target = "_blank";
+    link.className = "btn";
+    link.textContent = "COMPRAR ENTRADAS";
+    btnDiv.appendChild(link);
+  }
+
+  container.appendChild(dateDiv);
+  container.appendChild(cityDiv);
+  container.appendChild(venueDiv);
+  container.appendChild(btnDiv);
+});
+
+</script>
+
+</body>
+</html>
