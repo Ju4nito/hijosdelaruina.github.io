@@ -54,6 +54,7 @@ h1 {
   letter-spacing: 5px;
   overflow-wrap: anywhere;
   transform: translateY(0.05em);
+    font-weight: 500;
 }
 
 /* Versión escritorio */
@@ -74,6 +75,7 @@ h1 hr {
   border-top: 4px solid #fff;
   width: 90%;
   margin: 25px auto;
+
 }
 
 /* Corrección de Chrome (bordes de fuente) */
@@ -90,6 +92,7 @@ h1 hr {
   }
   .poster-title {
     display: block;
+	font-weight: 500;
   }
 
   h1 {
@@ -172,6 +175,7 @@ h1 hr {
     grid-template-columns: 1fr;
     text-align: center;
   }
+  h1{font-size:100px;}
 }
   </style>
 </head>
@@ -203,69 +207,69 @@ h1 hr {
 
   <!-- ====== CONCIERTOS ====== -->
   <div class="concerts" id="concerts"></div>
-
   <div style="text-align:center;margin-top:80px;clear:both;bottom:40px;">
     <a class="btn" href="https://natosywaor.com" style="font-size:40px;">natosywaor.com</a>&nbsp;
     <a class="btn" href="https://recycledj.com/" style="font-size:40px;">recycledj.com</a>
     <br><br><br><br>
   </div>
 
-  <!-- ====== SCRIPT ====== -->
-  <script>
-    function getNext14() {
-      const now = new Date();
-      const year = now.getFullYear();
-      let month = now.getMonth();
-      let target = new Date(year, month, 14, 0, 0, 0, 0);
-      if (now >= target) month++;
-      return new Date(year, month, 14, 0, 0, 0, 0);
-    }
+ <script>
+  // Fecha objetivo: 14 de noviembre a las 00:00 hora española (Europe/Madrid)
+  const targetDate = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Europe/Madrid" })
+  );
+  targetDate.setMonth(10); // noviembre (0 = enero)
+  targetDate.setDate(14);
+  targetDate.setHours(0, 0, 0, 0);
 
-    let targetDate = getNext14();
+  function updateCountdown() {
+    const now = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Europe/Madrid" })
+    );
+    const diff = Math.max(0, targetDate - now);
 
-    function updateCountdown() {
-      const now = new Date();
-      const diff = Math.max(0, targetDate - now);
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
 
-      document.getElementById('days').textContent = d;
-      document.getElementById('hours').textContent = h.toString().padStart(2, '0');
-      document.getElementById('minutes').textContent = m.toString().padStart(2, '0');
-      document.getElementById('seconds').textContent = s.toString().padStart(2, '0');
-    }
+    document.getElementById("days").textContent = d;
+    document.getElementById("hours").textContent = h.toString().padStart(2, "0");
+    document.getElementById("minutes").textContent = m.toString().padStart(2, "0");
+    document.getElementById("seconds").textContent = s.toString().padStart(2, "0");
+  }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
 
-    const concertsData = [
-      { date: '27/02/2026', city: 'Sevilla', venue: 'Cartuja Center CITE', soldout: false },
-      { date: '06/03/2026', city: 'Zaragoza', venue: 'Pabellón Príncipe Felipe', soldout: false },
-      { date: '13/03/2026', city: 'Madrid', venue: 'Movistar Arena', soldout: true },
-      { date: '14/03/2026', city: 'Madrid', venue: 'Movistar Arena', soldout: false },
-      { date: '17/04/2026', city: 'A Coruña', venue: 'Coliseum', soldout: false }
-    ];
+  // ====== LISTADO DE CONCIERTOS ======
+  const concertsData = [
+    { date: "27/02/2026", city: "Sevilla", venue: "Cartuja Center CITE", soldout: false },
+    { date: "06/03/2026", city: "Zaragoza", venue: "Pabellón Príncipe Felipe", soldout: false },
+    { date: "13/03/2026", city: "Madrid", venue: "Movistar Arena", soldout: true },
+    { date: "14/03/2026", city: "Madrid", venue: "Movistar Arena", soldout: false },
+    { date: "17/04/2026", city: "A Coruña", venue: "Coliseum", soldout: false },
+  ];
 
-    const container = document.getElementById('concerts');
-    concertsData.forEach(c => {
-      const dateDiv = document.createElement('div');
-      dateDiv.textContent = `${c.date} - HDLR`;
-      const cityDiv = document.createElement('div');
-      cityDiv.textContent = c.city;
-      const venueDiv = document.createElement('div');
-      venueDiv.textContent = c.venue;
-      const btnDiv = document.createElement('div');
-      const btn = document.createElement('button');
-      btn.className = 'btn' + (c.soldout ? ' soldout' : '');
-      btn.textContent = c.soldout ? 'SOLD OUT' : 'COMPRAR ENTRADAS';
-      btnDiv.appendChild(btn);
-      container.appendChild(dateDiv);
-      container.appendChild(cityDiv);
-      container.appendChild(venueDiv);
-      container.appendChild(btnDiv);
-    });
-  </script>
+  const container = document.getElementById("concerts");
+  concertsData.forEach((c) => {
+    const dateDiv = document.createElement("div");
+    dateDiv.textContent = `${c.date} - HDLR`;
+    const cityDiv = document.createElement("div");
+    cityDiv.textContent = c.city;
+    const venueDiv = document.createElement("div");
+    venueDiv.textContent = c.venue;
+    const btnDiv = document.createElement("div");
+    const btn = document.createElement("button");
+    btn.className = "btn" + (c.soldout ? " soldout" : "");
+    btn.textContent = c.soldout ? "SOLD OUT" : "COMPRAR ENTRADAS";
+    btnDiv.appendChild(btn);
+    container.appendChild(dateDiv);
+    container.appendChild(cityDiv);
+    container.appendChild(venueDiv);
+    container.appendChild(btnDiv);
+  });
+</script>
+
 </body>
 </html>
