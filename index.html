@@ -172,6 +172,26 @@ h1 hr {
   .footer a{display:block;with:100%;}
   .concerts .btn{display:block;width:80%;margin:0 auto;}
 }
+.video-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  justify-items: center;
+  margin-top: 20px;
+}
+
+.video-grid iframe {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+}
+
+/* Desktop: dos columnas */
+@media (min-width: 768px) {
+  .video-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
   </style>
   
 <!-- Google tag (gtag.js) -->
@@ -204,10 +224,12 @@ h1 hr {
     la ruina
   </h1>
 
-  <!-- ====== CONTADOR ====== -->
-  <div style="text-align:center;margin-top:20px;">
+
+ <div class="video-grid">
    <iframe width="800" height="450" src="https://www.youtube.com/embed/m1vQqbw-0uc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  </div>
+   <iframe width="800" height="450" src="https://www.youtube.com/embed/-76svVX5Cd8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</div>
 
   <!-- ====== CONCIERTOS ====== -->
   <div class="concerts" id="concerts"></div>
