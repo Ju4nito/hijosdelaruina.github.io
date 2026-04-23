@@ -337,8 +337,21 @@ const concertsData = [
 ];
 
 const container = document.getElementById("concerts");
+function parseDate(dateStr) {
+  // Caso rango tipo "16/07/2026-18/07/2026"
+  if (dateStr.includes("-")) {
+    dateStr = dateStr.split("-")[0]; // cogemos la primera fecha
+  }
 
-concertsData.forEach((c) => {
+  const [day, month, year] = dateStr.split("/");
+  return new Date(`${year}-${month}-${day}T00:00:00`);
+}
+const now = new Date();
+
+concertsData
+  .filter(c => parseDate(c.date) >= now)
+  .sort((a, b) => parseDate(a.date) - parseDate(b.date))
+  .forEach((c) => {
   const dateDiv = document.createElement("div");
   dateDiv.textContent = `${c.date} - HDLR`;
 
